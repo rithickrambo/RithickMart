@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RithickMart - Shoe Store</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f5f6fa;
+            color: #222;
+            line-height: 1.5;
+        }
+
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        header h1 {
+            color: #ff6b35;
+            font-size: 28px;
+        }
+
+        #search {
+            padding: 12px;
+            width: 280px;
+            max-width: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 6px;
+            background: #ff6b35;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 3px;
+        }
+
+        button:hover {
+            background: #e95522;
+        }
+
+        button:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+
+        .secondary {
+            background: #374151;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #111827, #374151);
+            color: white;
+            padding: 55px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            color: #d1d5db;
+            margin-bottom: 20px;
+        }
+
+        .hero img {
+            width: 320px;
+            max-width: 100%;
+            border-radius: 16px;
+        }
+
+        main {
+            padding: 30px 6%;
+        }
+
+        .section-title {
+            margin: 25px 0 18px;
+            font-size: 28px;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+        }
+
+        .categories button {
+            background: white;
+            color: #222;
+            border: 1px solid #ddd;
+        }
+
+        .categories button.active,
+        .categories button:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px #00000010;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background: #eee;
+        }
+
+        .product-info {
+            padding: 18px;
+        }
+
+        .product-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .category-label {
+            color: #666;
+            font-size: 13px;
+        }
+
+        .price {
+            color: #e95522;
+            font-size: 21px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .panel {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px #00000010;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        form label {
+            font-weight: bold;
+            display: block;
+            margin-top: 8px;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+
+        .admin-product {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        #authMsg {
+            margin-top: 12px;
+            color: #b42318;
+        }
+
+        #cartTotal {
+            color: #e95522;
+        }
+
+        footer {
+            text-align: center;
+            background: #111827;
+            color: white;
+            padding: 25px;
+            margin-top: 35px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                justify-content: center;
+            }
+
+            #search {
+                width: 100%;
+            }
+
+            .hero h2 {
+                font-size: 32px;
+            }
+
+            .hero img {
+                width: 100%;
+            }
+        }
+    </style>
+
+    <script src="/app.js" defer></script>
+</head>
+
+<body>
+
+<header>
+    <h1>👟 RithickMart</h1>
+
+    <input
+        type="search"
+        id="search"
+        placeholder="Search shoes..."
+    >
+
+    <button id="cartBtn" onclick="showCart()">
+        🛒 Cart (<span id="cartCount">0</span>)
+    </button>
+
+    <div id="account">
+        <button onclick="showAuth('login')">Login</button>
+        <button onclick="showAuth('register')">Register</button>
+    </div>
+</header>
+
+<section class="hero">
+    <div>
+        <h2>Step Into Style</h2>
+        <p>
+            Discover your perfect pair at RithickMart.<br>
+            Shop sneakers, sports shoes and formal shoes.
+        </p>
+        <button onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
+            Shop Now →
+        </button>
+    </div>
+
+    <img
+        src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=700&q=85"
+        alt="Red sneaker"
+    >
+</section>
+
+<main>
+
+    <section id="auth" class="panel hidden">
+        <h2 id="authTitle">Login to RithickMart</h2>
+
+        <form id="authForm" data-mode="login">
+            <div id="nameField" class="hidden">
+                <label for="name">Full Name</label>
+                <input id="name" placeholder="Enter your name">
+            </div>
+
+            <label for="email">Email</label>
+            <input id="email" type="email" required
+                   placeholder="Enter your email">
+
+            <label for="password">Password</label>
+            <input id="password" type="password"
+                   minlength="8" required
+                   placeholder="Minimum 8 characters">
+
+            <button type="submit">Submit</button>
+            <button type="button" class="secondary" onclick="hideAuth()">
+                Cancel
+            </button>
+        </form>
+
+        <p id="authMsg"></p>
+    </section>
+
+    <section id="admin" class="panel hidden">
+        <h2>Admin Shoe Management</h2>
+
+        <form id="productForm">
+            <label for="pname">Shoe Name</label>
+            <input id="pname" required placeholder="Shoe name">
+
+            <label for="pcategory">Category</label>
+            <input id="pcategory" required placeholder="Example: Sneakers">
+
+            <label for="pprice">Price (₹)</label>
+            <input id="pprice" type="number" min="0.01"
+                   step="0.01" required>
+
+            <label for="pstock">Stock Quantity</label>
+            <input id="pstock" type="number" min="0"
+                   value="10" required>
+
+            <label for="pimage">Image URL</label>
+            <input id="pimage" type="url" placeholder="Image URL">
+
+            <label for="pdesc">Description</label>
+            <textarea id="pdesc" rows="3"
+                      placeholder="Shoe description"></textarea>
+
+            <button type="submit">Add Shoe</button>
+        </form>
+
+        <h3>Manage Shoes</h3>
+        <div id="adminProducts"></div>
+    </section>
+
+    <section id="featured">
+        <h2 class="section-title">Shop by Category</h2>
+
+        <div class="categories">
+            <button class="active" data-category="All">All Shoes</button>
+            <button data-category="Sneakers">Sneakers</button>
+            <button data-category="Sports">Sports</button>
+            <button data-category="Formal">Formal</button>
+            <button data-category="Casual">Casual</button>
+            <button data-category="Walking">Walking</button>
+            <button data-category="Trail">Trail</button>
+        </div>
+
+        <h2 class="section-title">Available Shoes</h2>
+        <div id="products" class="products">
+            <p>Loading shoes...</p>
+        </div>
+    </section>
+
+    <section id="cartSection" class="panel hidden">
+        <h2>🛒 My Shopping Cart</h2>
+
+        <div id="cartItems"></div>
+
+        <h3 style="margin-top:18px">
+            Total: ₹<span id="cartTotal">0.00</span>
+        </h3>
+
+        <button onclick="checkout()">
+            Place Order (Cash on Delivery)
+        </button>
+
+        <button class="secondary" onclick="hideCart()">
+            Continue Shopping
+        </button>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 RithickMart | Your Next Favourite Pair Starts Here</p>
+</footer>
+
+</body>
+</html>
